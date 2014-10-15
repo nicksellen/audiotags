@@ -3,9 +3,10 @@ audiotags
 
 library and command retrieves audio tags (using TagLib)
 
-- doesn't use the taglib C bindings
+- uses libtag directly (doesn't use the C bindings)
 - read only support
 - returns the extended metadata (albumartist, composer, discnumber, etc...)
+- builds with cgo
 
 ## Install command and library
 
@@ -13,7 +14,7 @@ library and command retrieves audio tags (using TagLib)
     
 ## Install library
 
-    go get github.com/nicksellen/audiotags/audiotags
+    go get github.com/nicksellen/audiotags
     
     
 ## Command example
