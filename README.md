@@ -1,7 +1,7 @@
 audiotags
 =========
 
-library and command retrieves audio tags (using TagLib)
+library and command to retrieve audio metadata tags (uses [TagLib](http://taglib.github.io/))
 
 - uses libtag directly (doesn't use the C bindings)
 - read only support
