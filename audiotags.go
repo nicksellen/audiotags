@@ -46,7 +46,7 @@ func Open(filename string) (*File, error) {
 	defer C.free(unsafe.Pointer(fp))
 	f := (C.audiotags_file_new(fp))
 	if f == nil {
-		return nil, fmt.Errorf("cannot open file")
+		return nil, fmt.Errorf("cannot process %s", filename)
 	}
 	return (*File)(f), nil
 }

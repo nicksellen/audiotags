@@ -26,6 +26,7 @@ import (
 	"github.com/nicksellen/audiotags"
 	"log"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -40,7 +41,7 @@ func main() {
 		log.Fatal(err)
 	}
 	for k, v := range props {
-		fmt.Printf("%s %s\n", k, v)
+		fmt.Printf("%s %s\n", k, strings.Replace(strings.Replace(v, "\r\n", "\\n", -1), "\n", "\\n", -1))
 	}
 
 	fmt.Printf("length %d\nbitrate %d\nsamplerate %d\nchannels %d\n",
