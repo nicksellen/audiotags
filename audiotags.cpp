@@ -33,7 +33,6 @@
 
 #include "audiotags.h"
 
-static TagLib::List<char *> strings;
 static bool unicodeStrings = true;
 
 void TagLib_free(void* pointer)
@@ -66,9 +65,7 @@ void audiotags_file_properties(const TagLib_File *file, int id)
   for(TagLib::PropertyMap::ConstIterator i = tags.begin(); i != tags.end(); ++i) {
     for(TagLib::StringList::ConstIterator j = i->second.begin(); j != i->second.end(); ++j) {
       char *key = ::strdup(i->first.toCString(unicodeStrings));
-      strings.append(key);
       char *val = ::strdup((*j).toCString(unicodeStrings));
-      strings.append(val);
       go_map_put(id, key, val);
       free(key);
       free(val);
