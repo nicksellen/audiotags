@@ -59,7 +59,7 @@ void audiotags_file_close(TagLib_File *file)
   delete reinterpret_cast<TagLib::File *>(file);
 }
 
-void audiotags_file_properties(const TagLib_File *file, void *map)
+void audiotags_file_properties(const TagLib_File *file, int id)
 {
   const TagLib::File *f = reinterpret_cast<const TagLib::File *>(file);
   TagLib::PropertyMap tags = f->properties();
@@ -69,7 +69,7 @@ void audiotags_file_properties(const TagLib_File *file, void *map)
       strings.append(key);
       char *val = ::strdup((*j).toCString(unicodeStrings));
       strings.append(val);
-      go_map_put(map, key, val);
+      go_map_put(id, key, val);
       free(key);
       free(val);
     }

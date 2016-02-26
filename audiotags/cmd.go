@@ -23,10 +23,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/nicksellen/audiotags"
 	"log"
 	"os"
 	"strings"
+
+	"github.com/nicksellen/audiotags"
 )
 
 func main() {

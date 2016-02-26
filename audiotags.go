@@ -28,12 +28,12 @@ package audiotags
 #include <stdlib.h>
 */
 import "C"
-import "unsafe"
-
 import (
-	"fmt"
 	"strings"
+	"unsafe"
 )
+
+import "fmt"
 
 type File C.TagLib_File
 
@@ -83,8 +83,12 @@ func (f *File) Close() {
 }
 
 func (f *File) ReadTags() map[string]string {
+	id := mapsNextId
+	mapsNextId++
 	m := make(map[string]string)
-	C.audiotags_file_properties((*C.TagLib_File)(f), unsafe.Pointer(&m))
+	maps[id] = m
+	C.audiotags_file_properties((*C.TagLib_File)(f), C.int(id))
+	delete(maps, id)
 	return m
 }
 
@@ -101,8 +105,13 @@ func (f *File) ReadAudioProperties() *AudioProperties {
 	return &p
 }
 
+var maps = make(map[int]map[string]string)
+var mapsNextId = 0
+
 //export go_map_put
-func go_map_put(mp unsafe.Pointer, key *C.char, val *C.char) {
-	m := *(*map[string]string)(mp)
-	m[strings.ToLower(C.GoString(key))] = C.GoString(val)
+func go_map_put(id C.int, key *C.char, val *C.char) {
+	m := maps[int(id)]
+	k := strings.ToLower(C.GoString(key))
+	v := C.GoString(val)
+	m[k] = v
 }
